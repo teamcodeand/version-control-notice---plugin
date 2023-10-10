@@ -1,0 +1,19 @@
+{
+  "name": "teamcodeand/version-control-notice",
+  "type": "wordpress-muplugin",
+  "license": "MIT",
+  "description": "Shows a client friendly explainer as to why installing or updating plugins is disabled",
+  "authors": [
+    {
+      "name": "Dale Grant",
+      "email": "dale@codeand.com.au",
+      "homepage": "https://github.com/dalepgrant"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/teamcodeand/version-control-notice/issues"
+  },
+  "require": {
+    "php": ">=7.4 || >=8.0"
+  }
+}
