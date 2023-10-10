@@ -10,6 +10,23 @@ The wording has been written to be as developer agnostic as is reasonable and ho
 ## Why
 Sometimes clients forget why they're not able to add plugins, or they hire new team members who were never told, or the site changes hands. This is an attempt to explain before the client requests access they can't have.
 
+## Installing
+
+Add this to your project's `composer.json` file:
+
+```.json
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:teamcodeand/version-control-notice---plugin.git",
+      "no-api": true
+    }
+  ],
+  "require": {
+    "teamcodeand/version-control-notice": "dev-main"
+  },
+```
+
 ## Extending
 
 An example of adding developer contact details as a metabox:
