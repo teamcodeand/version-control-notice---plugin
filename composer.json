@@ -13,7 +13,25 @@
   "support": {
     "issues": "https://github.com/teamcodeand/version-control-notice/issues"
   },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:teamcodeand/codeand-wp-coding-standards.git",
+      "no-api": true
+    }
+  ],
   "require": {
-    "php": ">=7.4 || >=8.0"
+    "php": ">=8.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.12.1",
+    "roave/security-advisories": "dev-latest",
+    "teamcodeand/codeand-wp-coding-standards": "dev-main"
+  },
+  "minimum-stability": "dev",
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }
