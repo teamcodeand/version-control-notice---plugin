@@ -4,7 +4,7 @@
  * Plugin Name: Version Control Notice
  * Plugin URI:  https://codeand.com.au
  * Description: Shows a client friendly explainer as to why installing or updating plugins is disabled.
- * Version:     1.0.0
+ * Version:     1.1.0
  * Author:      Code&
  * Author URI:  https://codeand.com.au
  * Text Domain: version-control-notice
@@ -193,3 +193,46 @@ function version_control_notice()
     </div>
     <?php
 }
+
+/**
+ * Deny access to update-core.php and plugin-install.php with a custom error message.
+ *
+ * This function hooks into the admin_page_access_denied action. If the current admin
+ * page is either update-core.php or plugin-install.php, it displays a custom error
+ * message via wp_die() and stops execution. The message informs the user that
+ * adding or editing plugins is disabled, and includes a link to a custom plugins
+ * install page.
+ *
+ * @since 1.1.0
+ */
+add_action('admin_page_access_denied', function() {
+    // Access the global variable that contains the current admin page filename.
+    global $pagenow;
+
+    // Check if the current page is either update-core.php or plugin-install.php.
+    if ( in_array( $pagenow, array( 'update-core.php', 'plugin-install.php', true ) ) ) {
+        // Build the HTML title.
+        $title = sprintf(
+            '<h1>%s</h1>',
+            esc_html__( 'Pardon the interruption...', 'version-control-notice' )
+        );
+
+        // Build the main message paragraph.
+        $message_paragraph = sprintf(
+            '<p>%s</p>',
+            esc_html__( 'Adding or editing plugins through the WP dashboard has been disabled on this site for all users, including administrators. This site\'s code is under version control, meaning any code changes you make (i.e. adding a new plugin) would be overwritten the next time the site is deployed.', 'version-control-notice' )
+        );
+
+        // Build the help text paragraph with a link.
+        $help_paragraph = sprintf(
+            '<p>%s <a href="%s">%s</a> %s</p>',
+            esc_html__( 'Contact your developers for help adding plugins or see', 'version-control-notice' ),
+            esc_url( admin_url( 'admin.php?page=plugins-install' ) ),
+            esc_html__( 'this page', 'version-control-notice' ),
+            esc_html__( 'for more information.', 'version-control-notice' )
+        );
+
+        // Display and terminate.
+        wp_die( $title . $message_paragraph . $help_paragraph, 403 );
+    }
+});
